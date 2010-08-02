@@ -10,7 +10,7 @@ use LWP::UserAgent;
 use RDF::Trine;
 use Scalar::Util qw[blessed];
 
-our $VERSION = '0.001_00';
+our $VERSION = '0.001';
 
 sub new
 {
@@ -299,7 +299,7 @@ Please report any bugs to L<http://rt.cpan.org/>.
 Specification: L<http://buzzword.org.uk/2008/jsonGRDDL/spec>.
 
 Related modules: L<JSON>, L<JSON::T>, L<JSON::Path>,
-L<XML::GRDDL>.
+L<JSON::Hyper>, L<JSON::Schema>, L<XML::GRDDL>.
 
 L<http://www.perlrdf.org/>.
 
