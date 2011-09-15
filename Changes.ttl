@@ -36,10 +36,10 @@ my:project
 	:name           "JSON-GRDDL" ;
 	:shortdesc      "transform JSON to RDF"@en ;
 	:programming-language  "Perl" ;
-	:homepage       <http://search.cpan.org/dist/JSON-GRDDL/> ;
-	:download-page  <http://search.cpan.org/dist/JSON-GRDDL/> ;
+	:homepage       <https://metacpan.org/release/JSON-GRDDL> ;
+	:download-page  <https://metacpan.org/release/JSON-GRDDL> ;
 	:bug-database   <http://rt.cpan.org/Dist/Display.html?Queue=JSON-GRDDL> ;
-	:repository     [ a :SVNRepository ; :browse <http://goddamn.co.uk/viewvc/perlmods/JSON-GRDDL/> ] ;
+	:repository     [ a :SVNRepository ; :browse <http://goddamn.co.uk/svn-web/perlmods/browse/JSON-GRDDL/> ] ;
 	:maintainer     toby:i ;
 	:developer      toby:i ;
 	:documenter     toby:i ;
@@ -55,7 +55,7 @@ toby:i
 	a               foaf:Person ;
 	foaf:name       "Toby Inkster" ;
 	foaf:homepage   <http://tobyinkster.co.uk/> ;
-	foaf:page       <http://search.cpan.org/~tobyink/> ;
+	foaf:page       <https://metacpan.org/author/TOBYINK> ;
 	foaf:mbox       <mailto:tobyink@cpan.org> ;
 	<http://www.w3.org/2002/07/owl#sameAs> <http://purl.org/NET/cpan-uri/person/tobyink> .
 
