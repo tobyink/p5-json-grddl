@@ -1,16 +1,20 @@
 package JSON::GRDDL;
 
-use 5.008;
+use 5.010;
 use common::sense;
 
 use Carp;
 use JSON;
 use JSON::T;
 use LWP::UserAgent;
+use Object::AUTHORITY;
 use RDF::Trine;
 use Scalar::Util qw[blessed];
 
-our $VERSION = '0.001';
+BEGIN {
+	$JSON::GRDDL::AUTHORITY = 'cpan:TOBYINK';
+	$JSON::GRDDL::VERSION   = '0.001';
+}
 
 sub new
 {
@@ -31,7 +35,11 @@ sub ua
 	}
 	unless (blessed $self->{'ua'} && $self->{'ua'}->isa('LWP::UserAgent'))
 	{
-		$self->{'ua'} = LWP::UserAgent->new(agent=>sprintf('%s/%s ', __PACKAGE__, $VERSION));
+		$self->{'ua'} = LWP::UserAgent->new(agent=>sprintf('%s/%s (%s) ',
+			__PACKAGE__,
+			__PACKAGE__->VERSION,
+			__PACKAGE__->AUTHORITY,
+			));
 	}
 	return $self->{'ua'};
 }
@@ -133,7 +141,6 @@ sub discover
 			}
 		}
 	}
-	
 	return ($T);
 }
 
@@ -162,9 +169,44 @@ sub transform_by_jsont
 	my $jsont = JSON::T->new($transformation, $name);
 	my $out   = $jsont->transform_structure($document);
 	
+	_relabel($out);
+	
 	$options{'model'} ||= RDF::Trine::Model->temporary_model;
 	$options{'model'}->add_hashref($out);
 	return $options{'model'};
+}
+
+sub _relabel
+{
+	my ($data) = @_;
+	my $pfx    = '_:p'.int( 10_000_000 + rand(80_000_000) );
+	
+	foreach my $key (keys %$data)
+	{
+		if ($key =~ /^_:(.*)/)
+		{
+			my $new_key = $pfx . $1;
+			$data->{$new_key} = delete $data->{$key}
+		}
+	}
+	
+	foreach my $po (values %$data)
+	{
+		foreach my $ol (values %$po)
+		{
+			foreach my $o (@$ol)
+			{
+				next if $o->{type} =~ /literal/i;
+				next if exists $o->{lang};
+				next if exists $o->{datatype};
+				
+				if ($o->{value} =~ /^_:(.*)/)
+				{
+					$o->{value} = $pfx . $1;
+				}				
+			}
+		}
+	}
 }
 
 sub _fetch
@@ -245,6 +287,12 @@ object.
 
 =over 4
 
+=item C<< $grddl->ua >>
+
+=item C<< $grddl->ua($ua) >>
+
+Get/set an L<LWP::UserAgent> object for HTTP requests.
+
 =item C<< $grddl->data($json, $base, %options) >>
 
 This is usually what you want to call. It's a high-level method that does everything
@@ -311,7 +359,14 @@ Toby Inkster E<lt>tobyink@cpan.orgE<gt>.
 
 =head1 COPYRIGHT AND LICENCE
 
-Copyright 2008-2010 Toby Inkster.
+Copyright 2008-2011 Toby Inkster.
 
 This library is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.
+
+=head1 DISCLAIMER OF WARRANTIES
+
+THIS PACKAGE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR IMPLIED
+WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED WARRANTIES OF
+MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+
