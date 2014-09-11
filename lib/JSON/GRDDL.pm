@@ -1,7 +1,8 @@
-package JSON::GRDDL;
-
 use 5.010;
-use common::sense;
+use strict;
+use warnings;
+
+package JSON::GRDDL;
 
 use Carp;
 use JSON;

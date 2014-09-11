@@ -13,7 +13,6 @@
 		"Test::More 0.61";
 	:requires
 		"Carp 1.00",
-		"common::sense",
 		"JSON",
 		"JSON::T",
 		"LWP::UserAgent",
