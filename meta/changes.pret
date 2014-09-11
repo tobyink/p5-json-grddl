@@ -31,3 +31,10 @@ my:v_0-001
 		dcs:item   [a dcs:Packaging; rdfs:label "Improve test suite."@en]
 		].
 
+
+`JSON-GRDDL 0.002 cpan:TOBYINK`
+	issued    2014-09-11;
+	changeset [
+		item "Switch to Dist::Inkt."^^Packaging;
+	].
+
