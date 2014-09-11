@@ -1,0 +1,12 @@
+@prefix deps:  <http://ontologi.es/doap-deps#> .
+
+<http://purl.org/NET/cpan-uri/dist/JSON-GRDDL/project>
+	deps:runtime-requirement         [ deps:on "Carp 1.00"^^deps:CpanId ];
+	deps:runtime-requirement         [ deps:on "JSON"^^deps:CpanId ];
+	deps:runtime-requirement         [ deps:on "JSON::T"^^deps:CpanId ];
+	deps:runtime-requirement         [ deps:on "LWP::UserAgent"^^deps:CpanId ];
+	deps:runtime-requirement         [ deps:on "Object::AUTHORITY"^^deps:CpanId ];
+	deps:runtime-requirement         [ deps:on "RDF::Trine 0.112"^^deps:CpanId ];
+	deps:runtime-requirement         [ deps:on "Scalar::Util"^^deps:CpanId ];
+	deps:test-requirement            [ deps:on "Test::More 0.61"^^deps:CpanId ].
+
